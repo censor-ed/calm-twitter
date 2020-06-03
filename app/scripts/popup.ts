@@ -20,16 +20,18 @@ function localize() {
 
 function addClickEventListeners(keys: string[]) {
   keys.forEach(key => {
-    var input = document.getElementById(key);
-    input!.addEventListener('click', function (event) {
-      var checkbox = event.target as HTMLInputElement;
-      chrome.storage.local.set({ [key]: checkbox!.checked }, function () { });
+    const input = document.getElementById(key);
+    if (input) {
+      input.addEventListener('click', function (event) {
+        const checkbox = event.target as HTMLInputElement;
+        chrome.storage.local.set({ [key]: checkbox!.checked });
 
-      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        let tabId = tabs[0].id;
-        chrome.tabs.sendMessage(tabId!, { key: key }, function () { });
-      });
-    }, false);
+        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+          const tabId = tabs[0].id;
+          chrome.tabs.sendMessage(tabId!, { key: key });
+        });
+      }, false);
+    }
   });
 }
 
@@ -46,8 +48,10 @@ function toggleChecked(keys: string[]) {
           data[key] = true;
         }
       }
-      var input = document.getElementById(key) as HTMLInputElement;
-      input!.checked = data[key];
+      const input = document.getElementById(key) as HTMLInputElement;
+      if (input) {
+        input.checked = data[key];
+      }
     });
   });
 }

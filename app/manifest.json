@@ -13,7 +13,7 @@
     "scripts": [
       "scripts/background.js"
     ],
-    "persistent": true
+    "persistent": false
   },
   "page_action": {
     "default_icon": {
@@ -27,6 +27,12 @@
     "matches": ["https://twitter.com/*"],
     "js": ["scripts/contentscript.js"],
     "css": ["styles/contentscript.css"],
+    "run_at": "document_end"
+  },
+  {
+    "matches": ["https://tweetdeck.twitter.com/"],
+    "js": ["scripts/tweetdeck.js"],
+    "css": ["styles/tweetdeck.css"],
     "run_at": "document_end"
   }],
   "permissions": [

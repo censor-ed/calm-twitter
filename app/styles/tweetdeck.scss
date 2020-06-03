@@ -1,0 +1,51 @@
+@mixin hideReactionNumber {
+  .tweet-actions {
+    .reply-count, .retweet-count, .like-count {
+      opacity: 0;
+    }
+  }
+  .tweet-stats {
+    margin-top: 0;
+    > div {
+      opacity: 0;
+    }
+  }
+}
+
+body:not(.isReactionNumberAlwaysHidden).isReactionNumberHidden {
+  .tweet-actions:hover {
+    .reply-count, .retweet-count, .like-count {
+      opacity: 1;
+    }
+  }
+  .tweet-stats:hover {
+    > div {
+      opacity: 1;
+    }
+  }
+  @include hideReactionNumber()
+}
+
+body.isReactionNumberAlwaysHidden {
+  @include hideReactionNumber()
+}
+
+body.isFollowingNumberHidden {
+  .prf-stats {
+    > li:nth-child(2) {
+      strong {
+        opacity: 0
+      }
+    }
+  }
+}
+
+body.isFollowerNumberHidden {
+  .prf-stats {
+    > li:nth-child(3) {
+      strong {
+        opacity: 0
+      }
+    }
+  }
+}
